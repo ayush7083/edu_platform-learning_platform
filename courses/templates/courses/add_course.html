@@ -1,0 +1,78 @@
+{% extends 'courses/base.html' %}
+{% block title %}Add Course{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="bg-dark text-white p-5 rounded shadow-lg" style="background-color: rgba(0,0,0,0.85);">
+    <h2 class="text-center text-warning mb-4">📘 Add New Course</h2>
+
+    <!-- ⚠️ Form Error Display -->
+    {% if form.errors %}
+      <div class="alert alert-danger">
+        <strong>Please correct the following errors:</strong>
+        <ul class="mb-0">
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+
+    <!-- 📝 Add Course Form -->
+    <form method="POST" class="needs-validation" novalidate>
+      {% csrf_token %}
+
+      <!-- Title Field -->
+      <div class="mb-3">
+        <label for="id_title" class="form-label">Course Title</label>
+        <input 
+          type="text" 
+          class="form-control {% if form.title.errors %}is-invalid{% endif %}" 
+          id="id_title" 
+          name="title" 
+          placeholder="e.g. Python Basics" 
+          value="{{ form.title.value|default_if_none:'' }}" 
+          required
+        >
+        {% if form.title.errors %}
+          <div class="invalid-feedback">
+            {{ form.title.errors.0 }}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Description Field -->
+      <div class="mb-4">
+        <label for="id_description" class="form-label">Course Description</label>
+        <textarea 
+          class="form-control {% if form.description.errors %}is-invalid{% endif %}" 
+          id="id_description" 
+          name="description" 
+          rows="4" 
+          placeholder="Write a short description..." 
+          required
+        >{{ form.description.value|default_if_none:'' }}</textarea>
+        {% if form.description.errors %}
+          <div class="invalid-feedback">
+            {{ form.description.errors.0 }}
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-success w-100 fw-bold shadow-sm">
+        ➕ Add Course
+      </button>
+    </form>
+
+    <!-- 🔙 Back Link -->
+    <div class="text-center mt-4">
+      <a href="{% url 'course_list' %}" class="btn btn-outline-light">
+        ← Back to Course List
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

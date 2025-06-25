@@ -1,0 +1,96 @@
+{% extends 'courses/base.html' %}
+{% block title %}Courses{% endblock %}
+
+{% block content %}
+
+<style>
+  body {
+    background: linear-gradient(rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.85)),
+                url('https://images.unsplash.com/photo-1603570411287-962a73d5f6b5?auto=format&fit=crop&w=1470&q=80') no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .overlay-wrapper {
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 2rem;
+    border-radius: 12px;
+  }
+
+  .course-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 215, 0, 0.3);
+    border-radius: 0.75rem;
+    overflow: hidden;
+  }
+
+  .course-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.6);
+  }
+
+  .card-img-top {
+    object-fit: cover;
+    height: 200px;
+    transition: transform 0.3s ease;
+  }
+
+  .course-card:hover .card-img-top {
+    transform: scale(1.05);
+  }
+</style>
+
+<div class="overlay-wrapper">
+
+  <!-- 🔰 Header Section -->
+  <div class="text-center mb-5">
+    <h2 class="text-warning display-5 fw-bold">🌟 Explore Our Courses</h2>
+    <p class="text-light fs-5">Master in-demand skills with curated learning paths.</p>
+  </div>
+
+  <!-- 📦 Course Cards -->
+  {% if courses %}
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for course in courses %}
+    <div class="col">
+      <div class="card h-100 shadow-lg border-0 bg-dark text-white course-card">
+        <img 
+          src="https://source.unsplash.com/600x300/?education,{{ course.title|slugify }}" 
+          class="card-img-top" 
+          alt="Course image for {{ course.title }}" 
+          loading="lazy"
+          onerror="this.src='https://via.placeholder.com/600x300?text=Course+Image';"
+        >
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title text-warning fw-bold">{{ course.title }}</h5>
+          <p class="card-text flex-grow-1">
+            {{ course.description|default:"📎 No description available." }}
+          </p>
+          <a href="{% url 'lesson_list' course.id %}" 
+             class="btn btn-outline-warning mt-auto w-100" 
+             aria-label="View lessons for {{ course.title }}">
+             📘 View Lessons
+          </a>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <!-- ❌ No Courses -->
+  <div class="alert alert-warning text-center mt-4 shadow-sm">
+    🚫 No courses found. Be the first to 
+    <a href="{% url 'add_course' %}" class="alert-link fw-bold">add one</a>!
+  </div>
+  {% endif %}
+
+  <!-- ➕ Add New Course Button -->
+  <div class="text-end mt-5">
+    <a href="{% url 'add_course' %}" class="btn btn-success btn-lg shadow-sm" aria-label="Add new course">
+      ➕ Add New Course
+    </a>
+  </div>
+
+</div> <!-- /overlay-wrapper -->
+
+{% endblock %}

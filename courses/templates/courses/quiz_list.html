@@ -1,0 +1,71 @@
+{% extends 'courses/base.html' %}
+{% block title %}Quizzes - {{ lesson.title|default:"Untitled Lesson" }}{% endblock %}
+
+{% block content %}
+<style>
+  body {
+    background-image: linear-gradient(145deg, #141e30, #243b55);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+
+  .list-group-item {
+    border: 1px solid #ffc107;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+</style>
+
+<div class="container mt-4">
+  <h2 class="text-warning mb-3">
+    🧠 Quizzes for <span class="text-light">{{ lesson.title|default:"Untitled Lesson" }}</span>
+  </h2>
+
+  {% if quizzes %}
+    <ul class="list-group">
+      {% with "ABCDEFGHIJKLMNOPQRSTUVWXYZ" as letters %}
+        {% for quiz in quizzes %}
+          <li class="list-group-item bg-dark text-white">
+            <strong>Q{{ forloop.counter }}:</strong> {{ quiz.question|default:"Sample question not available." }}
+
+            {% if quiz.choice_list %}
+              <ul class="mt-2">
+                {% for choice in quiz.choice_list %}
+                  <li>{{ letters|slice:forloop.counter0 }}. {{ choice }}</li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <p class="text-muted mt-2">Choices not available.</p>
+            {% endif %}
+          </li>
+        {% endfor %}
+      {% endwith %}
+    </ul>
+  {% else %}
+    <div class="alert alert-info mt-4">
+      🚧 No quizzes available for this lesson yet. Here's a sample:
+    </div>
+
+    <ul class="list-group mt-3">
+      <li class="list-group-item bg-dark text-white">
+        <strong>Q1:</strong> What is the capital of France?
+        <ul class="mt-2">
+          <li>A. Paris</li>
+          <li>B. London</li>
+          <li>C. Berlin</li>
+          <li>D. Madrid</li>
+        </ul>
+      </li>
+    </ul>
+  {% endif %}
+
+  <div class="mt-4">
+    {% if lesson.course %}
+      <a href="{% url 'lesson_list' lesson.course.id %}" class="btn btn-outline-warning">← Back to Lessons</a>
+    {% else %}
+      <a href="{% url 'lessons_redirect' %}" class="btn btn-outline-warning">← Back to Lessons</a>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

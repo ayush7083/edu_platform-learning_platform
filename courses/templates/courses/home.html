@@ -1,0 +1,68 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Home | Learning Platform{% endblock %}
+
+{% block content %}
+<div class="scenic-bg py-5" style="min-height: 100vh;">
+  <div class="container text-center">
+
+    <!-- 🎉 Hero Section -->
+    <div class="p-5 mb-4 bg-dark bg-opacity-75 rounded-4 shadow-lg">
+      <h1 class="display-4 text-warning fw-bold">Welcome to EduPlatform 🚀</h1>
+      <p class="lead text-white mt-3">
+        Dive into curated courses, interactive lessons, and skill-building quizzes.<br>
+        Everything you need to learn, grow, and succeed — all in one place!
+      </p>
+
+      <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+        <a href="{% url 'course_list' %}" class="btn btn-warning btn-lg shadow" aria-label="Explore Courses">📘 Explore Courses</a>
+        <a href="{% url 'course_list' %}" class="btn btn-outline-light btn-lg shadow" aria-label="View Lessons">🎯 Lessons</a>
+        <a href="{% url 'quiz_page' %}" class="btn btn-outline-info btn-lg shadow" aria-label="Take a Quiz">📝 Take a Quiz</a>
+      </div>
+    </div>
+
+    <!-- 📚 Highlight Cards -->
+    <div class="row row-cols-1 row-cols-md-3 g-4 mt-4">
+      <div class="col">
+        <div class="card bg-secondary bg-opacity-50 border-0 text-white h-100">
+          <div class="card-body">
+            <h5 class="card-title">🌟 Featured Course</h5>
+            <p class="card-text">"Introduction to Python Programming" - Perfect for beginners to learn Python from scratch.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card bg-secondary bg-opacity-50 border-0 text-white h-100">
+          <div class="card-body">
+            <h5 class="card-title">🔥 Trending</h5>
+            <p class="card-text">"Web Development Bootcamp" - HTML, CSS, JavaScript & Django in one powerful path.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card bg-info bg-opacity-50 border-0 text-dark h-100">
+          <div class="card-body">
+            <h5 class="card-title">🎯 Daily Tip</h5>
+            <p class="card-text">Practice every day. Small consistent steps yield big learning gains.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- 🎨 Scenic Background CSS -->
+<style>
+  .scenic-bg {
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+      background-size: cover;
+  }
+
+  body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+  }
+</style>
+{% endblock %}

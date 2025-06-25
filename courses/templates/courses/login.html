@@ -1,0 +1,62 @@
+{% extends 'courses/base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<!-- 🔐 Login Page Wrapper -->
+<div class="min-h-screen d-flex justify-content-center align-items-center scenic-bg">
+
+    <div class="bg-dark bg-opacity-75 text-white p-5 rounded-4 shadow-lg border border-primary" style="max-width: 420px; width: 100%;">
+        <h2 class="text-center text-primary fw-bold mb-4">🔐 Login to Your Account</h2>
+
+        {% if error %}
+        <div class="alert alert-danger" role="alert">
+            ⚠️ {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="post" class="space-y-4">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label class="form-label text-light">Username</label>
+                <input type="text" name="username" required class="form-control bg-light text-dark">
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label text-light">Password</label>
+                <input type="password" name="password" required class="form-control bg-light text-dark">
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">
+                🔓 Login
+            </button>
+        </form>
+
+        <p class="text-center mt-4">
+            <small>Don't have an account? <a href="{% url 'register' %}" class="text-info">Register here</a>.</small>
+        </p>
+    </div>
+</div>
+
+<!-- 🎨 Extra Styles -->
+<style>
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    .min-h-screen {
+        height: 100vh;
+    }
+
+    .bg-opacity-75 {
+        background-color: rgba(0, 0, 0, 0.75) !important;
+    }
+
+    .scenic-bg {
+        background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+        background-size: cover;
+    }
+</style>
+{% endblock %}

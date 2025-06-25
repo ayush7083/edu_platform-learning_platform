@@ -1,0 +1,59 @@
+{% extends 'courses/base.html' %}
+
+{% block title %}Register - Learning Platform{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center scenic-bg" style="min-height: 100vh;">
+    <div class="bg-light text-dark p-5 rounded-4 shadow-lg" style="width: 100%; max-width: 500px; background-color: rgba(255, 255, 255, 0.9) !important;">
+
+        <h2 class="text-center mb-4 text-success">📝 Register</h2>
+
+        {% if error %}
+            <div class="alert alert-danger text-center">{{ error }}</div>
+        {% elif message %}
+            <div class="alert alert-success text-center">{{ message }}</div>
+        {% endif %}
+
+        <form method="post" novalidate>
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="username" class="form-label">👤 Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">📧 Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Enter email address" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">🔒 Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Create password" required>
+            </div>
+
+            <div class="d-grid mt-4">
+                <button type="submit" class="btn btn-success">Create Account</button>
+            </div>
+        </form>
+
+        <div class="text-center mt-3">
+            <small>Already have an account? <a href="{% url 'login' %}" class="text-decoration-none text-primary">Login</a></small>
+        </div>
+    </div>
+</div>
+
+<!-- 🎨 Background Style -->
+<style>
+    .scenic-bg {
+        background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+        background-size: cover;
+    }
+
+    body, html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+    }
+</style>
+{% endblock %}
